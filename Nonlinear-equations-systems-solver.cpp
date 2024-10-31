@@ -4,6 +4,20 @@
 #include<eqparser.h>
 #include<yakobi_matrix.h>
 
-int main() //Также изначально на ввод запросить у пользователя имя с файлом, где находится система уравнений и далее уже вызывать parse с этим параметром
+#pragma warning(disable:4996)
+
+
+
+int main()
 {
+	char** strings;
+	char file_name[100];
+	int n;
+
+
+	scanf("%s", &file_name);
+	n = get_n_from_file(file_name);
+	strings = parse(file_name);
+
+
 }
