@@ -1,6 +1,6 @@
-#include<yakobi_matrix.h>
-#include<s21_matrix.h>
-#include<tinyexpr.h>
+#include"yakobi_matrix.h"
+#include"s21_matrix.h"
+#include"tinyexpr.h"
 
 #define delta 0.000001 //Дельту на выбор
 

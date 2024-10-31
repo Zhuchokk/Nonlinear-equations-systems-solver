@@ -1,5 +1,5 @@
-#include<s21_matrix.h>
-#include<tinyexpr.h>
+#include"s21_matrix.h"
+#include"tinyexpr.h"
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
 
