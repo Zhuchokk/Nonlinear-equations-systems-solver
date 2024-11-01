@@ -1,8 +1,8 @@
 ﻿#include<stdio.h>
-#include<tinyexpr.h>
-#include<s21_matrix.h>
-#include<eqparser.h>
-#include<yakobi_matrix.h>
+#include"tinyexpr.h"
+#include"s21_matrix.h"
+#include"eqparser.h"
+#include"yakobi_matrix.h"
 
 #pragma warning(disable:4996)
 
@@ -38,12 +38,14 @@ int main()
 	//Инициализация массивов переменных, запись в них ссылок x и next_x. 
 	vars_x = (te_variable*)malloc(n * sizeof(te_variable));
 	for (int i = 0; i < n; i++) {
-		vars_x[i] = {"x" + ('0' + i + 1), &(x.matrix[i][0])};
-		
+		te_variable tv = { 'x' + ('0' + i + 1), &(x.matrix[i][0]) };
+		vars_x[i] = tv;
+
 	}
 	vars_x_next = (te_variable*)malloc(n * sizeof(te_variable));
 	for (int i = 0; i < n; i++) {
-		vars_x_next[i] = { "x" + ('0' + i + 1), &(x.matrix[i][0])};
+		te_variable tv = { 'x' + ('0' + i + 1), &(x_next.matrix[i][0]) };
+		vars_x_next[i] = tv;
 	}
 
 	//Инициализация функций
@@ -51,7 +53,7 @@ int main()
 	for (int i = 0; i < n; i++) {
 		functions_x[i] = te_compile(strings[i], vars_x, n, &err);
 	}
-	
+
 	functions_x_next = (te_expr**)malloc(n * sizeof(te_expr*));
 	for (int i = 0; i < n; i++) {
 		functions_x_next[i] = te_compile(strings[i], vars_x, n, &err);

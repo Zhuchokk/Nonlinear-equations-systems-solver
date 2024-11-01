@@ -1,4 +1,4 @@
-#include<eqparser.h>
+#include "eqparser.h"
 #include<stdio.h>
 
 #pragma warning(disable:4996)
@@ -84,7 +84,7 @@ int get_n_from_file(char* file_name) {
 	fp = fopen(file_name, "r");
 	while ((ch = fgetc(fp)) != '\n') {
 		static int i = 0;
-		number[i] = ch;
+		number[i] = ch; //error of access
 		i++;
 		number[i] = '\0';
 	}
