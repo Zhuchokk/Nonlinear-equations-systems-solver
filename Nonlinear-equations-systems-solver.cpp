@@ -1,4 +1,5 @@
 ﻿#include<stdio.h>
+#include<stdlib.h>
 #include"tinyexpr.h"
 #include"s21_matrix.h"
 #include"eqparser.h"
@@ -38,13 +39,13 @@ int main()
 	//Инициализация массивов переменных, запись в них ссылок x и next_x. 
 	vars_x = (te_variable*)malloc(n * sizeof(te_variable));
 	for (int i = 0; i < n; i++) {
-		te_variable tv = { 'x' + ('0' + i + 1), &(x.matrix[i][0]) };
+		te_variable tv = { 'x' + ('0' + i + 1) + "\0", &(x.matrix[i][0])};
 		vars_x[i] = tv;
 
 	}
 	vars_x_next = (te_variable*)malloc(n * sizeof(te_variable));
 	for (int i = 0; i < n; i++) {
-		te_variable tv = { 'x' + ('0' + i + 1), &(x_next.matrix[i][0]) };
+		te_variable tv = { 'x' + ('0' + i + 1) + '\0', &(x_next.matrix[i][0])};
 		vars_x_next[i] = tv;
 	}
 

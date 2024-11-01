@@ -1,9 +1,10 @@
 #include "eqparser.h"
 #include<stdio.h>
+#include<stdlib.h>
 
 #pragma warning(disable:4996)
 
-//Парсит файл с именем file_name и возвращает массив строк(char**), содержащих функции(с уже замененным = и знаками)
+//This function parses file with name: file_name and returns array of strings(char**), which contain functions(=, +, - correctly replaced)
 char** parse(char* file_name) {
 	FILE* fp;
 	int n;
@@ -24,7 +25,7 @@ char** parse(char* file_name) {
 
 	strings = (char**)malloc(n * sizeof(char*));
 	for (int i = 0; i < n; i++) {
-		strings[i] = (char*)malloc((n * space_per_symbol + 3) * sizeof(char)); //Если уравнение слишком большое здесь может быть нехватка памяти
+		strings[i] = (char*)malloc((n * space_per_symbol + 3) * sizeof(char)); //If equation is big too much, there will be the memory error
 	}
 
 	while ((ch = fgetc(fp))) {
@@ -84,7 +85,7 @@ int get_n_from_file(char* file_name) {
 	fp = fopen(file_name, "r");
 	while ((ch = fgetc(fp)) != '\n') {
 		static int i = 0;
-		number[i] = ch; //error of access
+		number[i] = ch;
 		i++;
 		number[i] = '\0';
 	}
