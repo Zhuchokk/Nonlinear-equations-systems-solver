@@ -3,6 +3,6 @@
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
 
-matrix_t create_yakobi_matrix(te_expr* funcs, matrix_t x);
+int create_yakobi_matrix(te_expr* funcs, matrix_t x, matrix_t* Yacobi);
 
 #endif
