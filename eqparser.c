@@ -31,16 +31,12 @@ char** parse(char* file_name) {
 	while ((ch = fgetc(fp))) {
 		static int i = 0, j = 0;
 		if (ch == '\n') {
-			for (; j < n * space_per_symbol + 3; j++) {
-				strings[i][j] = ' ';
-			}
+			strings[i][j] = '\0';
 			i++;
 			j = 0;
 		}
 		else if (ch == EOF) {
-			for (; j < n * space_per_symbol + 3; j++) {
-				strings[i][j] = ' ';
-			}
+			strings[i][j] = '\0';
 			break;
 		}
 		else {
