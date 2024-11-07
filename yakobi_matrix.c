@@ -2,9 +2,8 @@
 #include "s21_matrix.h"
 #include "tinyexpr.h"
 
-#define delta 0.000001 //Дельту на выбор
+#define delta 0.000001 
 
-//тут вопрос, передавать и возвращать matrix_t или с ссылкой matrix_t*.
 int create_yakobi_matrix(te_expr** funcs, matrix_t x, matrix_t* Yacobi) {
 	int status = 1;
 	int n = x.rows;
