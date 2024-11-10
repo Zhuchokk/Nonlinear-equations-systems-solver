@@ -42,6 +42,14 @@ void copy(matrix_t a, matrix_t b, int size)
 		a.matrix[i][0] = b.matrix[i][0];
 }
 
+int check_answer(matrix_t x, double a, double b)
+{
+	// проверка на нахождение предполагаемого корня в конкретном отрезке
+	int n = x.rows;
+	for (int i = 0; i < n; i++)
+		if (x.matrix[i][0] <= a || x.matrix[i][0] >= b) return 1;
+	return 0;
+}
 
 int main()
 {
@@ -62,7 +70,15 @@ int main()
 	matrix_t yakobi_obr;
 	matrix_t matrix_mul;
 	
+	double a = 0.0, b = 0.0;
+	short int flag_half_del = 0;
+
+	printf("Enter the filename\n");
 	scanf("%s", &file_name);
+	printf("Enter the interval for the expected response\n(format: a b where a < b)\n");
+	scanf("%lf %lf", &a, &b);
+	if (a != b) flag_half_del = 1.0; // если пользователь ввел определяемый интервал предполагаемого корня
+
 	n = get_n_from_file(file_name);
 	strings = parse(file_name);
 
@@ -100,15 +116,25 @@ int main()
 	{
 		copy(x, x_next, n);
 		find_Fx(functions_x, Fx, n);
+
 		if (!create_yakobi_matrix(functions_x, x, &yakobi)) {
 			//Деление на ноль, выход за область определения функции, что-то надо сделать
 			continue;
 		}
+
 		s21_inverse_matrix(&yakobi, &yakobi_obr);
 		s21_mult_matrix(&yakobi_obr, &Fx, &matrix_mul);
 		s21_sub_matrix(&x, &matrix_mul, &x_next);
+
+		if (flag_half_del == 1)
+		{
+			while(check_answer(x_next, a, b))
+				for(int i = 0; i < n; i++)
+					x_next.matrix[i][0] = (x.matrix[i][0] + x_next.matrix[i][0]) / 2;
+		}
 	}
 
+	printf("Answer:\n");
 	for (int i = 0; i < n; i++)
 		printf("%f\n", x_next.matrix[i][0]);
 
