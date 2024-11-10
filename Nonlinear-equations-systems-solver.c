@@ -75,7 +75,7 @@ int main()
 
 	printf("Enter the filename\n");
 	scanf("%s", &file_name);
-	printf("Enter the interval for the expected response\n(format: a b where a < b)\n");
+	printf("Enter the interval for the expected response\n(format: a b where a < b or enter 0 0 if you want (a, b) = R\n");
 	scanf("%lf %lf", &a, &b);
 	if (a != b) flag_half_del = 1.0; // если пользователь ввел определяемый интервал предполагаемого корня
 
@@ -118,8 +118,8 @@ int main()
 		find_Fx(functions_x, Fx, n);
 
 		if (!create_yakobi_matrix(functions_x, x, &yakobi)) {
-			//Деление на ноль, выход за область определения функции, что-то надо сделать
-			continue;
+			printf("Error: couldn't find derivative. Newton's method cannot be used");
+			return 0;
 		}
 
 		s21_inverse_matrix(&yakobi, &yakobi_obr);
@@ -138,5 +138,5 @@ int main()
 	for (int i = 0; i < n; i++)
 		printf("%f\n", x_next.matrix[i][0]);
 
-	scanf("%d");
+	system("PAUSE");
 }
