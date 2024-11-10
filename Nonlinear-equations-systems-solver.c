@@ -26,7 +26,7 @@ double absol(double n)
 double max_sub(matrix_t a, matrix_t b, int size)
 {
 	// вывод максимольной разности по модулю
-    double arr[size];
+	double* arr = (double*)calloc(size, sizeof(double));
     double max = -9999999999;
     for (int i = 0; i < size; i++)
     {
@@ -71,7 +71,7 @@ int main()
 	s21_create_matrix(n, 1, &x_next);
 	s21_create_matrix(n, n, &yakobi);
 	s21_create_matrix(n, 1, &Fx);
-	s21_create_matrix(n, 1, &yakobi_obr);
+	s21_create_matrix(n, n, &yakobi_obr);
 	s21_create_matrix(n, 1, &matrix_mul);
 
 	// начальное приближение и стартовое положение x2
@@ -100,7 +100,10 @@ int main()
 	{
 		copy(x, x_next, n);
 		find_Fx(functions_x, Fx, n);
-		create_yakobi_matrix(functions_x, x, &yakobi);
+		if (!create_yakobi_matrix(functions_x, x, &yakobi)) {
+			//Деление на ноль, выход за область определения функции, что-то надо сделать
+			continue;
+		}
 		s21_inverse_matrix(&yakobi, &yakobi_obr);
 		s21_mult_matrix(&yakobi_obr, &Fx, &matrix_mul);
 		s21_sub_matrix(&x, &matrix_mul, &x_next);
