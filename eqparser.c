@@ -75,7 +75,6 @@ int get_n_from_file(char* file_name) {
 	FILE* fp;
 	int n;
 	char ch;
-	char** strings;
 	char* number = (char*)malloc(100 * sizeof(char));
 
 	fp = fopen(file_name, "r");

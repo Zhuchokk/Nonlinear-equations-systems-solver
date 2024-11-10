@@ -6,6 +6,7 @@
 #include"yakobi_matrix.h"
 
 #define eps 0.00001
+#define OUTPUT_PRECISION "5" // -log10(eps)
 
 #pragma warning(disable:4996)
 
@@ -33,6 +34,7 @@ double max_sub(matrix_t a, matrix_t b, int size)
         arr[i] = absol(a.matrix[i][0] - b.matrix[i][0]);
         if (max < arr[i]) max = arr[i];
     }
+	free(arr);
     return max;
 }
 
@@ -93,8 +95,8 @@ int main()
 	// начальное приближение и стартовое положение x2
 	for(int i = 0; i < n; i++)
 	{
-		x.matrix[i][0] = 1;
-		x_next.matrix[i][0] = 2;
+		x.matrix[i][0] = (a + b) / 2;
+		x_next.matrix[i][0] = (a + b) - 1;
 	}
 
 	//Инициализация массивов переменных, запись в них ссылок x и next_x. 
@@ -136,7 +138,18 @@ int main()
 
 	printf("Answer:\n");
 	for (int i = 0; i < n; i++)
-		printf("%f\n", x_next.matrix[i][0]);
+		printf("%." OUTPUT_PRECISION "lf\n", x_next.matrix[i][0]);
+
+	s21_remove_matrix(&x);
+	s21_remove_matrix(&x_next);
+	s21_remove_matrix(&x);
+	s21_remove_matrix(&yakobi);
+	s21_remove_matrix(&yakobi_obr);
+	s21_remove_matrix(&matrix_mul);
+	for (int i = 0; i < n; i++) {
+		te_free(functions_x[i]);
+	}
 
 	system("PAUSE");
+	
 }
